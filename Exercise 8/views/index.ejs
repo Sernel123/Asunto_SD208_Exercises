@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <input type="hidden" id="errors" value="<%=(typeof errors == 'undefined')? '':JSON.stringify(errors)%>">
+    <section class="left-section">
+        <div id="left-cover" class="cover cover-hide">
+            <img src="/img/cover.png" alt="">
+            <h1>Welcome !</h1>
+            <h3>Already have an account ?</h3>
+            <button type="button" class="switch-btn" onclick="location.reload()">Login</button>
+        </div>
+        <div id="left-form" class="form fade-in-element">
+            <h1>Login</h1>
+            <form action="/home" method="post">
+                <input type="text" name="username" class="input-box" placeholder="User Name">
+                <input type="password" name="userpass" class="input-box" placeholder="Password">
+                <input type="submit" class="btn" value="Login">
+            </form>
+        </div>
+    </section>
+
+    <section class="right-section">
+        <div id="right-cover" class="cover fade-in-element">
+            <img src="img/cover.png" alt="">
+            <h1>Welcome !</h1>
+            <h3>Don't have an account ?</h3>
+            <button type="button" class="switch-btn" onclick="switchSignup()">Signup</button>
+        </div>
+        <div id="right-form" class="form form-hide">
+            <h1>Signup</h1>
+            <form action="/login" method="post">
+                <input type="text" name="username" class="input-box" id="username" placeholder="User Name">
+                <input type="email" name="useremail" class="input-box" id="email" placeholder="Email">
+                <input type="password" name="userpass" class="input-box" id="password" placeholder="Password">
+                <input type="password" name="usercpass" class="input-box" placeholder="Confirm Password">
+                <input type="submit" name="signup-btn" class="btn" value="Signup">
+            </form>
+        </div>
+    </section>
+
+    <script>
+        var left_cover = document.getElementById("left-cover");
+        var left_form = document.getElementById("left-form");
+
+        var right_cover = document.getElementById("right-cover");
+        var right_form = document.getElementById("right-form");
+
+        function switchSignup() {
+            right_form.classList.add("fade-in-element");
+            left_cover.classList.add("fade-in-element");
+
+            left_form.classList.add("form-hide");
+            left_cover.classList.remove("cover-hide");
+            right_form.classList.remove("form-hide");
+            right_cover.classList.add("cover-hide");
+        }
+
+        window.onload = () => {
+            let errors = document.getElementById('errors').value;
+            if(errors) {
+                errors = JSON.parse(errors);
+                for(let error of errors) {
+                    console.log(error.msg);
+                }
+                switchSignup();
+            }
+        }
+    </script>
+</body>
+
+</html>
